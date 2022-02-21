@@ -7,6 +7,14 @@
 #include "string_library.h"
 
 
+typedef struct str
+{
+
+    void *data;
+    size_t length;
+}string;
+
+
 
 
 string *createString(size_t set_size)
@@ -49,7 +57,7 @@ size_t getLength(char *string_tmp)
 }
 
 
-string *ctorString(char *set_data)
+void *ctorString(char *set_data)
 {
     
     assert(set_data != NULL);
