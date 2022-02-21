@@ -7,12 +7,13 @@
 #include "string_library.h"
 
 
-typedef struct str
+
+struct str
 {
 
     void *data;
     size_t length;
-}string;
+};
 
 
 
@@ -32,6 +33,20 @@ string *createString(size_t set_size)
     new -> length = set_size;
 
     return new;
+}
+
+
+size_t stringLength(string *line)
+{
+    
+    assert(line != NULL);
+    if(!line)
+    {
+        printf("This string is empty\n");
+        return 0;
+    }
+
+    return strlen(line -> data);
 }
 
 
@@ -161,4 +176,21 @@ string *concatString(string *str1, string *str2)
 
     return concat;
 }
+
+
+void *currentData(string *ptr)
+{
+
+    assert(ptr != NULL);
+    if(!ptr)
+    {
+        printf("String is empty\n");
+        return NULL;
+    }
+
+    char *return_data = ptr -> data;
+    return return_data;
+}
+
+    
 

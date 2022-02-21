@@ -3,6 +3,7 @@
 #ifndef DA_H
 #define DA_H
 
+
 typedef struct str string;
 
 
@@ -24,11 +25,11 @@ string *getChildren(string *parent, int begin, int end);
 //The function for string concatination//
 string *concatString(string *str1, string *str2);
 
+//Function-getter data of the string\n//
+void *currentData(string *ptr);
 
-
-
-
-
+//The function-getter length of the string//
+size_t stringLength(string *line);
 
 
 #endif
