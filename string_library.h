@@ -12,7 +12,8 @@ typedef struct StringInfo
     int register_info;
     size_t size;
     void *empty;
-    //void *printString(string *line);
+    void *(*printString)(string *line);
+    void *(*printRegisterInfo)(Info *information);
 
 }Info;
 
@@ -51,7 +52,8 @@ int getRegister(string *line);
 void printString(string *line);
 
 //This function output information about register of the string//
-void printString(string *line);
+void printRegisterInfo(Info *information);
+
 
 
 
