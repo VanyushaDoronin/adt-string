@@ -12,6 +12,7 @@ typedef struct StringInfo
     int register_info;
     size_t size;
     void *empty;
+    //void *printString(string *line);
 
 }Info;
 
@@ -43,13 +44,22 @@ size_t getStringLength(string *line);
 //The function-getter sizeof elements of the string//
 size_t getElementSize(string *line);
 
+//The function for getting register info of the string//
+int getRegister(string *line);
+
+//The function for printing string//
+void printString(string *line);
+
+//This function output information about register of the string//
+void printString(string *line);
+
 
 
 enum RegisterInformation
 {
-    LOWER = 0,
-    UPPER = 1,
-    DIFFERENT = 2,
+    LOWER = 1,
+    UPPER = 2,
+    DIFFERENT = 3,
     EMPTY = -1,
 };
 

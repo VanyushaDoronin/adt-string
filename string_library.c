@@ -213,6 +213,31 @@ string *concatString(string *str1, string *str2)
 }
 
 
+int searchSubstring(string *line, string *substring)
+{
+
+    assert(line != NULL);
+    assert(substring != NULL);
+    assert(line -> data != NULL);
+    assert(substring -> data != NULL);
+
+    int index = 0;
+
+    if(line -> length == 0 || !(line -> data))
+    {
+        printf("Main string is empty. Please input correct data\n");
+        return 0;
+    }
+
+    if(substring -> length == 0 || !(substring -> data))
+    {
+        printf("The main string contains unlimited quantity of empty substrings.\n");
+        return 0;
+    }
+}
+
+
+
 void *currentData(string *ptr)
 {
 
@@ -226,6 +251,7 @@ void *currentData(string *ptr)
     char *return_data = ptr -> data;
     return return_data;
 }
+
 
 
 Info *getInfo(string *line)
@@ -270,7 +296,7 @@ int getRegister(string *line)
         {
             return DIFFERENT;
         }
-        
+
         else if(buffer[i] < 97 && buffer[i] >= 64)
         {
             register_info = UPPER;
@@ -279,4 +305,57 @@ int getRegister(string *line)
     }
 
     return register_info;
+}
+
+
+
+void printString(string *line)
+{
+
+    assert(line != NULL);
+    assert(line -> data != NULL);
+
+    if(!(line -> data) || (line -> length == 0))
+    {
+        printf("This string is empty\n");
+        return;
+    }
+
+    printf("\n%s\n", (char *)line -> data);
+}
+
+
+
+void printRegisterInfo(Info *information)
+{
+
+    assert(information != NULL);
+
+    if(!(information -> register_info))
+    {
+        printf("Can't get information about register\n");
+        return;
+    }
+
+    switch(information -> register_info)
+    {
+        case LOWER:
+
+            printf("Regiser of the string is lower\n");
+            break;
+
+        case UPPER:
+
+            printf("Register of the string is upper\n");
+            break;
+
+        case DIFFERENT:
+
+            printf("This string contains symbols with both registers\n");
+            break;   
+        
+        default:
+            printf("Can't get information about register\n");
+            return;
+    }   
 }
