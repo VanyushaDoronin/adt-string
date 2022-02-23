@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>
-#include <math.h>
+#include <stdbool.h>
 #include "string.h"
 #include "string_library.h"
 
@@ -13,9 +13,44 @@ struct str
 
     void *data;
     size_t length;
+    size_t element_size;
 };
 
 
+
+size_t getStringSize(string *line)
+{
+    assert(line != NULL);
+    assert(line -> data != NULL);
+
+    if(!line || !(line -> data) || line -> length == 0)
+    {
+        printf("This string is empty");
+        return 0;
+    }
+
+    size_t size = sizeof(line -> data);
+
+    return size;
+}
+
+
+size_t getElementSize(string *line)
+{
+
+    assert(line != NULL);
+    assert(line -> data != NULL);
+
+    if(!line || !(line -> data) || line -> length == 0)
+    {
+        printf("This string is empty");
+        return 0;
+    }
+
+    size_t size = sizeof(line -> data[0]);
+
+    return size;
+}
 
 
 string *createString(size_t set_size)
@@ -36,7 +71,7 @@ string *createString(size_t set_size)
 }
 
 
-size_t stringLength(string *line)
+size_t getStringLength(string *line)
 {
     
     assert(line != NULL);
@@ -192,5 +227,56 @@ void *currentData(string *ptr)
     return return_data;
 }
 
-    
 
+Info *getInfo(string *line)
+{
+
+    assert(line != NULL);
+    assert(line -> data != NULL);
+
+    Info *current_info = (Info *)calloc(1, sizeof(Info));
+
+    if(!current_info)
+    {
+        printf("Unknown error with memory\n");
+        return NULL;
+    }
+
+    current_info -> empty = createString(line -> length);   
+    current_info -> size = getStringSize(line);
+
+    return current_info;
+}
+
+
+
+int getRegister(string *line)
+{
+    assert(line != NULL);
+    assert(line -> data != NULL);
+
+    if(!line || !(line -> data) || line -> length == 0)
+    {
+        printf("This string is empty");
+        return EMPTY;
+    }
+
+    int register_info = LOWER;
+    char *buffer = line -> data;
+
+    for(int i = 0; i < getLength(line -> data); i++)
+    {
+        if(register_info == UPPER && buffer[i] > 97)
+        {
+            return DIFFERENT;
+        }
+        
+        else if(buffer[i] < 97 && buffer[i] >= 64)
+        {
+            register_info = UPPER;
+        }
+        
+    }
+
+    return register_info;
+}

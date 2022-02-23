@@ -1,10 +1,19 @@
 //header file 
 
-#ifndef DA_H
-#define DA_H
+#ifndef STRING_LIBRARY_H
+#define STRING_LIBRARY_H
 
 
 typedef struct str string;
+
+
+typedef struct StringInfo
+{
+    int register_info;
+    size_t size;
+    void *empty;
+
+}Info;
 
 
 //The function for creating empty string//
@@ -29,7 +38,20 @@ string *concatString(string *str1, string *str2);
 void *currentData(string *ptr);
 
 //The function-getter length of the string//
-size_t stringLength(string *line);
+size_t getStringLength(string *line);
+
+//The function-getter sizeof elements of the string//
+size_t getElementSize(string *line);
+
+
+
+enum RegisterInformation
+{
+    LOWER = 0,
+    UPPER = 1,
+    DIFFERENT = 2,
+    EMPTY = -1,
+};
 
 
 #endif

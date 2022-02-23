@@ -17,8 +17,11 @@ int main()
     string *str2 = ctorString(data2);
     string *concat_str = concatString(str1, str2);
     string *substring = getChildren(str1, 2, 10);
-    printf("Here is concatination result %s\n", (char*)currentData(concat_str));
-    printf("Here is substring %s %ld\n", (char*)currentData(substring), stringLength(substring));
+    printf("Here is concatination result: %s\n", (char*)currentData(concat_str));
+    printf("Here is substring: %s %ld\n", (char*)currentData(substring), getStringLength(substring));
+    printf("Here is size of element: %ld", getElementSize(str1));
+    printf("Herer is A %d", 'A');
+    printf("Here is a %d", 'a');
 
     destructString(str1);
     destructString(concat_str);
