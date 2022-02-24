@@ -7,34 +7,26 @@
 typedef struct str string;
 
 
-typedef struct StringInfo
-{
-    int register_info;
-    size_t size;
-    void *empty;
-    void *(*printString)(string *line);
-    void *(*printRegisterInfo)(Info *information);
-
-}Info;
-
-
 //The function for creating empty string//
-string *createString(size_t set_size);
+void *createString(size_t set_size);
 
 //The function for getting length of the string//
 size_t getLength(char *string_tmp);
 
 //The functiong for creating non-empty string//
-void *ctorString(char *set_data);
+void *ctorString(void *set_data);
 
 //The function to destruct string//
 void destructString(string *line);
 
 //The function for getting substring//
-string *getChildren(string *parent, int begin, int end);
+void *getChildren(string *parent, int begin, int end);
 
 //The function for string concatination//
-string *concatString(string *str1, string *str2);
+void *concatString(string *str1, string *str2);
+
+//The function for getting index of substring//
+int searchSubstring(string *line, string *substring);
 
 //Function-getter data of the string\n//
 void *currentData(string *ptr);
@@ -52,8 +44,7 @@ int getRegister(string *line);
 void printString(string *line);
 
 //This function output information about register of the string//
-void printRegisterInfo(Info *information);
-
+void printRegisterInfo(string *line);
 
 
 

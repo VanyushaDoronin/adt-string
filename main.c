@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <math.h>
+#include "info.h"
 
 
 
@@ -17,10 +18,12 @@ int main()
     string *str2 = ctorString(data2);
     string *concat_str = concatString(str1, str2);
     string *substring = getChildren(str1, 2, 10);
-    printf("Here is concatination result: %s\n", (char*)currentData(concat_str));
-    printf("Here is substring: %s %ld\n", (char*)currentData(substring), getStringLength(substring));
-    printf("Here is size of element: %ld\n", getElementSize(str1));
-    printf("\n%d\n", getRegister(str1));
+    printString(concat_str);
+    printString(substring);
+    printf("\ncurrent data substring : %s\n", (char *)currentData(substring));
+    printf("\n substring length: %ld \n", getStringLength(substring));
+    printRegisterInfo(substring);
+    printf("\n size 1 element of substring : %ld\n", getElementSize(substring));
 
     destructString(str1);
     destructString(concat_str);

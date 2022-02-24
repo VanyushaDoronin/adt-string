@@ -1,3 +1,4 @@
+#define NDEBUG
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -5,6 +6,7 @@
 #include <stdbool.h>
 #include "string.h"
 #include "string_library.h"
+#include "info.h"
 
 
 
@@ -53,7 +55,7 @@ size_t getElementSize(string *line)
 }
 
 
-string *createString(size_t set_size)
+void *createString(size_t set_size)
 {
 
     string *new = (string *)calloc(1, sizeof(string));
@@ -107,7 +109,7 @@ size_t getLength(char *string_tmp)
 }
 
 
-void *ctorString(char *set_data)
+void *ctorString(void *set_data)
 {
     
     assert(set_data != NULL);
@@ -150,7 +152,7 @@ void destructString(string *line)
 }
 
 
-string *getChildren(string *parent, int begin, int end)
+void *getChildren(string *parent, int begin, int end)
 {
 
     assert(parent != NULL);
@@ -164,7 +166,7 @@ string *getChildren(string *parent, int begin, int end)
     
     if(begin < 0 || end > parent -> length)
     {
-        printf("Invalid input size. Please input correctly\n");
+        printf("Invalid input size. Please input begin and end positions correctly\n");
         printf("Please input begin position\n");
         scanf("%d", &begin);
         printf("Please input end postion\n");
@@ -190,7 +192,7 @@ string *getChildren(string *parent, int begin, int end)
 
 
 
-string *concatString(string *str1, string *str2)
+void *concatString(string *str1, string *str2)
 {
     
     assert(str1 != NULL);
@@ -234,6 +236,8 @@ int searchSubstring(string *line, string *substring)
         printf("The main string contains unlimited quantity of empty substrings.\n");
         return 0;
     }
+
+    return index;
 }
 
 
@@ -253,27 +257,20 @@ void *currentData(string *ptr)
 }
 
 
-
-Info *getInfo(string *line)
+void printString(string *line)
 {
 
     assert(line != NULL);
     assert(line -> data != NULL);
 
-    Info *current_info = (Info *)calloc(1, sizeof(Info));
-
-    if(!current_info)
+    if(!(line -> data) || (line -> length == 0))
     {
-        printf("Unknown error with memory\n");
-        return NULL;
+        printf("This string is empty\n");
+        return;
     }
 
-    current_info -> empty = createString(line -> length);   
-    current_info -> size = getStringSize(line);
-
-    return current_info;
+    printf("\n%s\n", (char *)line -> data);
 }
-
 
 
 int getRegister(string *line)
@@ -309,35 +306,20 @@ int getRegister(string *line)
 
 
 
-void printString(string *line)
+void printRegisterInfo(string *line)
 {
 
     assert(line != NULL);
-    assert(line -> data != NULL);
 
-    if(!(line -> data) || (line -> length == 0))
-    {
-        printf("This string is empty\n");
-        return;
-    }
+    int register_info = getRegister(line);
 
-    printf("\n%s\n", (char *)line -> data);
-}
-
-
-
-void printRegisterInfo(Info *information)
-{
-
-    assert(information != NULL);
-
-    if(!(information -> register_info))
+    if(!register_info)
     {
         printf("Can't get information about register\n");
         return;
     }
 
-    switch(information -> register_info)
+    switch(register_info)
     {
         case LOWER:
 
@@ -359,6 +341,4 @@ void printRegisterInfo(Info *information)
             return;
     }   
 }
-
-
 
