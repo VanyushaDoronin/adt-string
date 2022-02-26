@@ -1,1 +1,4 @@
-# My first attempt to implement abstract data type in C. Task 1.
+# README
+
+Task 1. My first attempt of implementation abstract data type in C(This example is string).
+
