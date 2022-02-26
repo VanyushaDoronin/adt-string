@@ -17,7 +17,7 @@ size_t getLength(char *string_tmp);
 void *ctorString(void *set_data);
 
 //The function to destruct string//
-void destructString(string *line);
+void dtorString(string *line);
 
 //The function for getting substring//
 void *getChildren(string *parent, int begin, int end);
@@ -26,13 +26,16 @@ void *getChildren(string *parent, int begin, int end);
 void *concatString(string *str1, string *str2);
 
 //The function for getting index of substring//
-int searchSubstring(string *line, string *substring);
+void *searchSubstring(string *line, string *substring, int status);
 
 //Function-getter data of the string\n//
 void *currentData(string *ptr);
 
 //The function-getter length of the string//
 size_t getStringLength(string *line);
+
+//The functiong-getter size of full string//
+size_t getStringSize(string *line);
 
 //The function-getter sizeof elements of the string//
 size_t getElementSize(string *line);

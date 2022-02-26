@@ -135,7 +135,7 @@ void *ctorString(void *set_data)
 
 
 
-void destructString(string *line)
+void dtorString(string *line)
 {
 
     assert(line != NULL);
@@ -215,15 +215,14 @@ void *concatString(string *str1, string *str2)
 }
 
 
-int searchSubstring(string *line, string *substring)
+void *searchSubstring(string *line, string *substring, int status)
 {
 
-    assert(line != NULL);
+    /*assert(line != NULL);
     assert(substring != NULL);
     assert(line -> data != NULL);
     assert(substring -> data != NULL);
 
-    int index = 0;
 
     if(line -> length == 0 || !(line -> data))
     {
@@ -237,7 +236,24 @@ int searchSubstring(string *line, string *substring)
         return 0;
     }
 
-    return index;
+    if(substring -> length > line -> length)
+    {
+        printf("Substring contains more symbols than main string\n");
+        return 0;
+    }
+
+    int byte_inc = 0;
+    if(status == 1)
+    {
+        byte_inc = 32;
+    }
+
+    char *line_buffer = currentData(line);
+    char *substring_buffer = currentData(substring);
+    char *result = line_buffer;
+
+    return result;*/
+    return NULL;
 }
 
 
@@ -269,7 +285,7 @@ void printString(string *line)
         return;
     }
 
-    printf("\n%s\n", (char *)line -> data);
+    printf("%s\n", (char *)line -> data);
 }
 
 
@@ -323,21 +339,21 @@ void printRegisterInfo(string *line)
     {
         case LOWER:
 
-            printf("Regiser of the string is lower\n");
+            printf("\nRegiser of the string is lower\n");
             break;
 
         case UPPER:
 
-            printf("Register of the string is upper\n");
+            printf("\nRegister of the string is upper\n");
             break;
 
         case DIFFERENT:
 
-            printf("This string contains symbols with both registers\n");
+            printf("\nThis string contains symbols with both registers\n");
             break;   
         
         default:
-            printf("Can't get information about register\n");
+            printf("\nCan't get information about register\n");
             return;
     }   
 }

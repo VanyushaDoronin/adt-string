@@ -1,6 +1,7 @@
 #define NDEBUG
 #include <readline/readline.h>
 #include "string_library.h"
+#include "menu.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
@@ -11,7 +12,21 @@
 
 int main()
 {
-    char *data = readline("Please input your string\n");
+
+    int menu_status = 1;
+    while(menu_status)
+    {
+        menu_status = mainMenu();
+    }
+
+
+
+
+
+
+
+
+    /*char *data = readline("Please input your string\n");
     char *data2 = readline("Please input another string data\n");
 
     string *str1 = ctorString(data);
@@ -24,10 +39,11 @@ int main()
     printf("\n substring length: %ld \n", getStringLength(substring));
     printRegisterInfo(substring);
     printf("\n size 1 element of substring : %ld\n", getElementSize(substring));
+    printf("here is pointer on the first substring symbol %s", (char *)searchSubstring(str1, str2, 0));
 
-    destructString(str1);
-    destructString(concat_str);
-    destructString(str2);
-    destructString(substring);
+    dtorString(str1);
+    dtorString(concat_str);
+    dtorString(str2);
+    dtorString(substring);*/
     return 0;
 }
