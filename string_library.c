@@ -129,6 +129,7 @@ void *ctorString(void *set_data)
 
     new -> data = set_data;
     new -> length = getLength(new -> data);
+    new -> element_size = getElementSize(new);
 
     return new;
 }
@@ -215,10 +216,10 @@ void *concatString(string *str1, string *str2)
 }
 
 
-void *searchSubstring(string *line, string *substring, int status)
+void *searchSubstring(string *line, string *substring)
 {
 
-    /*assert(line != NULL);
+    assert(line != NULL);
     assert(substring != NULL);
     assert(line -> data != NULL);
     assert(substring -> data != NULL);
@@ -227,33 +228,55 @@ void *searchSubstring(string *line, string *substring, int status)
     if(line -> length == 0 || !(line -> data))
     {
         printf("Main string is empty. Please input correct data\n");
-        return 0;
+        return NULL;
     }
 
     if(substring -> length == 0 || !(substring -> data))
     {
         printf("The main string contains unlimited quantity of empty substrings.\n");
-        return 0;
+        return NULL;
     }
 
     if(substring -> length > line -> length)
     {
         printf("Substring contains more symbols than main string\n");
-        return 0;
+        return NULL;
     }
 
-    int byte_inc = 0;
-    if(status == 1)
-    {
-        byte_inc = 32;
-    }
 
     char *line_buffer = currentData(line);
     char *substring_buffer = currentData(substring);
-    char *result = line_buffer;
+    char *tmp_buffer = substring_buffer;
+    char *result = NULL;
 
-    return result;*/
+    while(*line_buffer != '\0')
+    {
+        result = line_buffer;
+
+        if(*line_buffer != *tmp_buffer)
+        {
+            line_buffer++;
+            continue;
+        }
+
+
+        while(*line_buffer == *tmp_buffer && *line_buffer != '\0' && *tmp_buffer != '\0')
+        {
+            line_buffer++;
+            tmp_buffer++;
+
+            if(*tmp_buffer == '\0')
+            {
+                return result;
+            }
+        }
+
+        tmp_buffer = substring_buffer;
+    }
+
+
     return NULL;
+    
 }
 
 

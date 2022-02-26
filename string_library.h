@@ -26,7 +26,7 @@ void *getChildren(string *parent, int begin, int end);
 void *concatString(string *str1, string *str2);
 
 //The function for getting index of substring//
-void *searchSubstring(string *line, string *substring, int status);
+void *searchSubstring(string *line, string *substring);
 
 //Function-getter data of the string\n//
 void *currentData(string *ptr);

@@ -17,10 +17,10 @@ Info *getInfo(size_t (*getStringLength)(string *),
     void (*printString)(string *))
 {
 
-    /*assert(info -> currentData != NULL);
+    assert(info -> currentData != NULL);
     assert(info -> empty != NULL);
     assert(info -> getElementSize != NULL);
-    assert(info -> getStringLength != NULL);*/
+    assert(info -> getStringLength != NULL);
 
     Info *info = (Info *)calloc(1, sizeof(Info));
 
@@ -41,12 +41,8 @@ void dtorInfo(Info *info)
 
     assert(info != NULL);
 
-    //free(info -> printString);
-    //free(info -> currentData);
+    
     free(info -> empty);
-    //free(info -> printRegisterInfo);
-    //free(info -> getStringSize);
-    //free(info -> getStringLength);
     free(info);
 }
 

@@ -149,7 +149,27 @@ int mainMenu()
 
         case SEARCH:
 
+            printf("\nChoose parent string\n");
+            printf("1. First string\n");
+            printf("2. Next string\n");
+            scanf("%d", &choose);
+            
+            char *children = NULL;
 
+            if(choose == 1)
+            {
+                children = searchSubstring(str1, str2);
+            }
+
+            if(choose == 2)
+            {
+                children = searchSubstring(str2, str1);
+            }
+
+            printf("Here is occurrence of a substring in a string: %s\n", children);
+
+
+            return SUCCES;
 
 
 
@@ -170,8 +190,6 @@ int mainMenu()
                 dtorInfo(info);
             }
             
-        
-
             return SUCCES_EXIT;
         
 
