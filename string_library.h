@@ -3,54 +3,141 @@
 #ifndef STRING_LIBRARY_H
 #define STRING_LIBRARY_H
 
-
+/**
+ * @brief Abstract data type String
+ */
 typedef struct str string;
 
 
-//The function for creating empty string//
+/**
+ * @brief Create a String object
+ 
+ * @param set_size is input of size
+ * @return void* 
+ */
 void *createString(size_t set_size);
 
-//The function for getting length of the string//
+
+/**
+ * @brief Get the Length of the String
+ * 
+ * @param string_tmp is data of String object
+ * @return size_t 
+ */
 size_t getLength(char *string_tmp);
 
-//The functiong for creating non-empty string//
+
+/**
+ * @brief Create and initialize String object
+ * 
+ * @param set_data is a String object
+ * @return void* 
+ */
 void *ctorString(void *set_data);
 
-//The function to destruct string//
+
+/**
+ * @brief Destruct String object
+ * 
+ * @param line is a String to destruct  
+ */
 void dtorString(string *line);
 
-//The function for getting substring//
+
+/**
+ * @brief Get the Children object
+ * 
+ * @param parent is a String object from which the substring is obtained
+ * @param begin is index of the element where substring starts
+ * @param end is index of the element where substring ends
+ * @return void* 
+ */
 void *getChildren(string *parent, int begin, int end);
 
-//The function for string concatination//
+
+/**
+ * @brief Concatination two String-objects
+ * 
+ * @param str1 is first string
+ * @param str2 is another string
+ * @return void* 
+ */
 void *concatString(string *str1, string *str2);
 
-//The function for getting index of substring//
+
+/**
+ * @brief Search substring in the String object
+ * 
+ * @param line is main String object
+ * @param substring is a subString object
+ * @return void* pointer on the first substring occurence
+ */
 void *searchSubstring(string *line, string *substring);
 
-//Function-getter data of the string\n//
+
+/**
+ * @brief Get the String current data
+ * 
+ * @param ptr is a String object
+ * @return void* 
+ */
 void *currentData(string *ptr);
 
-//The function-getter length of the string//
+
+/**
+ * @brief Get the String Length object
+ * 
+ * @param line is a String object
+ * @return size_t 
+ */
 size_t getStringLength(string *line);
 
-//The functiong-getter size of full string//
+
+/**
+ * @brief Get the full String Size object
+ * 
+ * @param line is a String object 
+ * @return size_t 
+ */
 size_t getStringSize(string *line);
 
-//The function-getter sizeof elements of the string//
+
+/**
+ * @brief Get the Size of one element in the String object
+ * 
+ * @param line is a String object
+ * @return size_t 
+ */
 size_t getElementSize(string *line);
 
-//The function for getting register info of the string//
+/**
+ * @brief Get the Register information about the String object
+ * 
+ * @param line is a String Object
+ * @return int 
+ */
 int getRegister(string *line);
 
-//The function for printing string//
+
+/**
+ * @brief Print String object
+ * 
+ * @param line is a String object
+ */
 void printString(string *line);
 
-//This function output information about register of the string//
+
+/**
+ * @brief Printf register information about the String object
+ * 
+ * @param line is a String object
+ */
 void printRegisterInfo(string *line);
 
 
-
+/**
+ * @brief This is enumeration of possible cases to register infromation
+ */
 enum RegisterInformation
 {
     LOWER = 1,
