@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <math.h>
+#include "error_treat.h"
 #include "info.h"
 
 
@@ -17,6 +18,13 @@ int main()
     while(menu_status)
     {
         menu_status = mainMenu();
+        
+        if(menu_status == SUCCES_EXIT)
+        {
+            return 0;
+        }
+        
+        CHECK_ERROR(menu_status);
     }
 
     return 0;

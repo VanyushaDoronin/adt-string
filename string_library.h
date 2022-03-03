@@ -1,5 +1,6 @@
 //header file 
 
+
 #ifndef STRING_LIBRARY_H
 #define STRING_LIBRARY_H
 
@@ -15,7 +16,7 @@ typedef struct str string;
  * @param set_size is input of size
  * @return void* 
  */
-void *createString(size_t set_size);
+void *createString(size_t set_size, int *error_status);
 
 
 /**
@@ -33,7 +34,7 @@ size_t getLength(char *string_tmp);
  * @param set_data is a String object
  * @return void* 
  */
-void *ctorString(void *set_data);
+void *ctorString(void *set_data, int *error_status);
 
 
 /**
@@ -41,7 +42,7 @@ void *ctorString(void *set_data);
  * 
  * @param line is a String to destruct  
  */
-void dtorString(string *line);
+void dtorString(string *line, int *error_status);
 
 
 /**
@@ -52,7 +53,7 @@ void dtorString(string *line);
  * @param end is index of the element where substring ends
  * @return void* 
  */
-void *getChildren(string *parent, int begin, int end);
+void *getSubstring(string *parent, int begin, int end, int *error_status);
 
 
 /**
@@ -62,7 +63,7 @@ void *getChildren(string *parent, int begin, int end);
  * @param str2 is another string
  * @return void* 
  */
-void *concatString(string *str1, string *str2);
+void *concatString(string *str1, string *str2, int *error_status);
 
 
 /**
@@ -72,7 +73,7 @@ void *concatString(string *str1, string *str2);
  * @param substring is a subString object
  * @return void* pointer on the first substring occurence
  */
-void *searchSubstring(string *line, string *substring);
+void *searchSubstring(string *line, string *substring, int *error_status);
 
 
 /**
@@ -116,7 +117,7 @@ size_t getElementSize(string *line);
  * @param line is a String Object
  * @return int 
  */
-int getRegister(string *line);
+int getRegister(string *line, int *error_status);
 
 
 /**
@@ -124,7 +125,7 @@ int getRegister(string *line);
  * 
  * @param line is a String object
  */
-void printString(string *line);
+void printString(string *line, int *error_status);
 
 
 /**
@@ -132,7 +133,7 @@ void printString(string *line);
  * 
  * @param line is a String object
  */
-void printRegisterInfo(string *line);
+void printRegisterInfo(string *line, int *error_status);
 
 
 /**

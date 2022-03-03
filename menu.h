@@ -12,8 +12,9 @@ int mainMenu();
 enum EnumMenuStatus
 {
     SUCCES = 1,
-    ERROR = -1,
     SUCCES_EXIT = 0,
+    ERRSIZE = -4,
+    UNKNOWN = -2,
 };
 
 

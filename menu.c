@@ -5,6 +5,7 @@
 #include "string_library.h"
 #include "info.h"
 #include "menu.h"
+#include "error_treat.h"
 
 
 
@@ -13,6 +14,16 @@ int mainMenu()
 
     static void *str1;
     static void *str2;
+
+    if(!str1)
+    {
+        str1 = NULL;
+    }
+    
+    if(!str2)
+    {
+        str2 = NULL;
+    }
 
     static Info *info;
 
@@ -40,7 +51,7 @@ int mainMenu()
     printf("6. Exit\n");
     printf("Please choose one point from the list\n");
 
-    int input_status = 0;
+    int error_status = 1;
 
     scanf("%d", &choose);
 
@@ -52,22 +63,22 @@ int mainMenu()
             if(str1)
             {
                 printf("\nExisting string will be removed\n");
-                dtorString(str1);
+                dtorString(str1, &error_status);
             }
 
             if(str2)
             {
                 printf("\nExisting string will be removed\n");
-                dtorString(str2);
+                dtorString(str2, &error_status);
             }
 
             char *buffer_str1 = readline("\nPlease enter first string:\n");
             char *buffer_str2 = readline("\nPlease enter next string:\n");
 
-            str1 = ctorString(buffer_str1);
-            str2 = ctorString(buffer_str2);
+            str1 = ctorString(buffer_str1, &error_status);
+            str2 = ctorString(buffer_str2, &error_status);
 
-            return SUCCES;
+            return error_status;
 
 
         case INFO:
@@ -76,23 +87,23 @@ int mainMenu()
             printf("\n1. First string\n");
             printf("2. Next string\n");
             printf("3. Both\n");
-            input_status = 0;
 
             scanf("%d", &choose);
 
             if(choose == 1)
             {
-                printStringInfo(str1, NULL, info);
+                printStringInfo(str1, NULL, info, &error_status);
             }
             else if(choose == 2)
             {
-                printStringInfo(NULL, str2, info);
+                printStringInfo(NULL, str2, info, &error_status);
             }
             else
             {
-                printStringInfo(str1, str2, info);
+                printStringInfo(str1, str2, info, &error_status);
             }
-            return SUCCES;
+
+            return error_status;
 
 
         case SUBSTRING:
@@ -100,7 +111,6 @@ int mainMenu()
             printf("Please choose string, which info you need\n");
             printf("\n1. First string\n");
             printf("2. Next string\n");
-            input_status = 0;
             int begin;
             int end;
 
@@ -117,17 +127,17 @@ int mainMenu()
 
             if(choose == 1)
             {
-                substring = getChildren(str1, begin, end);
+                substring = getSubstring(str1, begin, end, &error_status);
             }
             
             if(choose == 2)
             {
-                substring = (getChildren(str2, begin, end));
+                substring = getSubstring(str2, begin, end, &error_status);
             }
 
-            info -> printString(substring);
-            dtorString(substring);
-            return SUCCES;
+            info -> printString(substring, &error_status);
+            dtorString(substring, &error_status);
+            return error_status;
 
 
         case CONCAT:
@@ -140,11 +150,11 @@ int mainMenu()
 
             printf("\nStrings concatination is: \n");
 
-            string *concat = concatString(str1, str2);
-            info -> printString(concat);
-            dtorString(concat);
+            string *concat = concatString(str1, str2, &error_status);
+            info -> printString(concat, &error_status);
+            dtorString(concat, &error_status);
 
-            return SUCCES;
+            return error_status;
 
 
         case SEARCH:
@@ -158,18 +168,18 @@ int mainMenu()
 
             if(choose == 1)
             {
-                children = searchSubstring(str1, str2);
+                children = searchSubstring(str1, str2, &error_status);
             }
 
             if(choose == 2)
             {
-                children = searchSubstring(str2, str1);
+                children = searchSubstring(str2, str1, &error_status);
             }
 
             printf("Here is occurrence of a substring in a string: %s\n", children);
 
 
-            return SUCCES;
+            return error_status;
 
 
 
@@ -177,12 +187,12 @@ int mainMenu()
 
             if(str1)
             {
-                dtorString(str1);
+                dtorString(str1, &error_status);
             }
                 
             if(str2)
             {
-                dtorString(str2);
+                dtorString(str2, &error_status);
             }
 
             if(info)
@@ -195,7 +205,7 @@ int mainMenu()
 
         default:
             printf("\nUnknown error\n");
-            return ERROR;
+            return UNKNOWN;
     }
 }
 

@@ -6,8 +6,8 @@
 #include <stdbool.h>
 #include "string.h"
 #include "string_library.h"
+#include "error_treat.h"
 #include "info.h"
-
 
 
 struct str
@@ -25,9 +25,9 @@ size_t getStringSize(string *line)
     assert(line != NULL);
     assert(line -> data != NULL);
 
+
     if(!line || !(line -> data) || line -> length == 0)
     {
-        printf("This string is empty");
         return 0;
     }
 
@@ -45,7 +45,6 @@ size_t getElementSize(string *line)
 
     if(!line || !(line -> data) || line -> length == 0)
     {
-        printf("This string is empty");
         return 0;
     }
 
@@ -55,7 +54,7 @@ size_t getElementSize(string *line)
 }
 
 
-void *createString(size_t set_size)
+void *createString(size_t set_size, int *error_status)
 {
 
     string *new = (string *)calloc(1, sizeof(string));
@@ -63,7 +62,7 @@ void *createString(size_t set_size)
 
     if(set_size < 0)
     {
-        printf("Length of the string can't be negative.\n");
+        *error_status = ERRSIZE;
         return new;
     }
 
@@ -79,7 +78,6 @@ size_t getStringLength(string *line)
     assert(line != NULL);
     if(!line)
     {
-        printf("This string is empty\n");
         return 0;
     }
 
@@ -94,7 +92,6 @@ size_t getLength(char *string_tmp)
 
     if(!string_tmp)
     {
-        printf("String is empty\n");
         return 0;
     }
 
@@ -109,21 +106,22 @@ size_t getLength(char *string_tmp)
 }
 
 
-void *ctorString(void *set_data)
+void *ctorString(void *set_data, int *error_status)
 {
     
     assert(set_data != NULL);
 
-    string *new = createString(getLength(set_data));
+    string *new = createString(getLength(set_data), error_status);
 
-    if(!new)
+    if(new == NULL)
     {
+        *error_status = EFAULT;
         return new;
     }
 
-    if(!set_data)
+    if(set_data == NULL)
     {
-        printf("Here is empty string\n");
+        *error_status = EFAULT;
         return new;
     }
 
@@ -136,15 +134,14 @@ void *ctorString(void *set_data)
 
 
 
-void dtorString(string *line)
+void dtorString(string *line, int *error_status)
 {
 
     assert(line != NULL);
-    //assert(line -> data != NULL);
+    assert(line -> data != NULL);
 
     if(line == NULL || line -> data == NULL || line -> length == 0)
     {
-        printf("Here is empty string\n");
         return;
     }
 
@@ -153,10 +150,16 @@ void dtorString(string *line)
 }
 
 
-void *getChildren(string *parent, int begin, int end)
+void *getSubstring(string *parent, int begin, int end, int *status)
 {
 
     assert(parent != NULL);
+
+    if(parent == NULL)
+    {
+        *status = EFAULT;
+        return NULL;
+    }
 
     if(begin > end)
     {
@@ -167,13 +170,8 @@ void *getChildren(string *parent, int begin, int end)
     
     if(begin < 0 || end > parent -> length)
     {
-        printf("Invalid input size. Please input begin and end positions correctly\n");
-        printf("Please input begin position\n");
-        scanf("%d", &begin);
-        printf("Please input end postion\n");
-        scanf("%d", &end);
-
-        return getChildren(parent, begin, end);
+        *status = ERRSIZE;
+        return NULL;
     }
 
     char *parent_tmp = parent -> data;
@@ -185,7 +183,7 @@ void *getChildren(string *parent, int begin, int end)
         result[i] = parent_tmp[begin + i];
     }
 
-    string *children = ctorString(result);
+    string *children = ctorString(result, status);
 
 
     return children;
@@ -193,7 +191,7 @@ void *getChildren(string *parent, int begin, int end)
 
 
 
-void *concatString(string *str1, string *str2)
+void *concatString(string *str1, string *str2, int *status)
 {
     
     assert(str1 != NULL);
@@ -210,13 +208,13 @@ void *concatString(string *str1, string *str2)
     strcat(result, str1 -> data);
     strcat(result, str2 -> data);
     
-    string *concat = ctorString(result);
+    string *concat = ctorString(result, status);
 
     return concat;
 }
 
 
-void *searchSubstring(string *line, string *substring)
+void *searchSubstring(string *line, string *substring, int *status)
 {
 
     assert(line != NULL);
@@ -224,22 +222,33 @@ void *searchSubstring(string *line, string *substring)
     assert(line -> data != NULL);
     assert(substring -> data != NULL);
 
+    if(line == NULL)
+    {
+        *status = EFAULT;
+        return NULL;
+    }
+
+    if(substring == NULL)
+    {
+        *status = EFAULT;
+        return NULL;
+    }
 
     if(line -> length == 0 || !(line -> data))
     {
-        printf("Main string is empty. Please input correct data\n");
+        *status = EFAULT;
         return NULL;
     }
 
     if(substring -> length == 0 || !(substring -> data))
     {
-        printf("The main string contains unlimited quantity of empty substrings.\n");
+        *status = EFAULT;
         return NULL;
     }
 
     if(substring -> length > line -> length)
     {
-        printf("Substring contains more symbols than main string\n");
+        *status = ERRSIZE;
         return NULL;
     }
 
@@ -287,7 +296,6 @@ void *currentData(string *ptr)
     assert(ptr != NULL);
     if(!ptr)
     {
-        printf("String is empty\n");
         return NULL;
     }
 
@@ -296,11 +304,17 @@ void *currentData(string *ptr)
 }
 
 
-void printString(string *line)
+void printString(string *line, int *error_status)
 {
 
     assert(line != NULL);
     assert(line -> data != NULL);
+
+    if(line == NULL)
+    {
+        *error_status = EFAULT;
+        return;
+    }
 
     if(!(line -> data) || (line -> length == 0))
     {
@@ -312,14 +326,19 @@ void printString(string *line)
 }
 
 
-int getRegister(string *line)
+int getRegister(string *line, int *error_status)
 {
     assert(line != NULL);
     assert(line -> data != NULL);
 
+    if(line == NULL)
+    {
+        *error_status = EFAULT;
+        return 0;
+    }
+
     if(!line || !(line -> data) || line -> length == 0)
     {
-        printf("This string is empty");
         return EMPTY;
     }
 
@@ -345,18 +364,25 @@ int getRegister(string *line)
 
 
 
-void printRegisterInfo(string *line)
+void printRegisterInfo(string *line, int *error_status)
 {
 
     assert(line != NULL);
 
-    int register_info = getRegister(line);
+    if(line == NULL)
+    {
+        *error_status = EFAULT;
+        return;
+    }
+
+    int register_info = getRegister(line, error_status);
 
     if(!register_info)
     {
         printf("Can't get information about register\n");
         return;
     }
+
 
     switch(register_info)
     {
